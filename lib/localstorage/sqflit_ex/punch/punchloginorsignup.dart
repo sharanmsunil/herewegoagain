@@ -143,6 +143,5 @@ class page1 extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }
