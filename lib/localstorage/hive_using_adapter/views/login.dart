@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:herewegoagain/localstorage/hive_using_adapter/model/users.dart';
+import 'package:herewegoagain/localstorage/hive_using_adapter/services/hiveDB.dart';
 import 'package:herewegoagain/localstorage/hive_using_adapter/views/register.dart';
 import 'package:hive_flutter/adapters.dart';
+
+import 'hive_home.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox('userdata');
+  Hive.registerAdapter(UsersAdapter());
+  await Hive.openBox<Users>('userdata');
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     home: Hive_Login(),));
@@ -21,7 +26,6 @@ class Hive_Login extends StatefulWidget {
 
 class _Hive_LoginState extends State<Hive_Login> {
 
-  final username_controller = TextEditingController();
   final email_controller = TextEditingController();
   final password_controller = TextEditingController();
 
@@ -40,29 +44,6 @@ class _Hive_LoginState extends State<Hive_Login> {
                   fontSize: 20),
             ),
             SizedBox(height: 20,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                controller: username_controller,
-                decoration: InputDecoration(
-                  hintText: "Username",
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    borderSide: BorderSide(
-                        color: Colors.grey.shade300, width: 3),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    borderSide: BorderSide(
-                        color: Colors.grey.shade300, width: 3),
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                      vertical: 15, horizontal: 30),
-                  isDense: true,
-                ),
-              ),
-            ),
-            SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
@@ -109,7 +90,10 @@ class _Hive_LoginState extends State<Hive_Login> {
               ),
             ),
             SizedBox(height: 20,),
-            ElevatedButton(onPressed: (){},
+            ElevatedButton(onPressed: () async{
+              final users = await HiveDB.getallusers();
+              validateLogin(users);
+            },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     minimumSize: Size(300, 50)),
@@ -132,5 +116,24 @@ class _Hive_LoginState extends State<Hive_Login> {
         ),
       ),
     );
+  }
+
+  void validateLogin(List<Users> users) async{
+    final lemail = email_controller.text;
+    final lpass = password_controller.text;
+    bool userExist = false;
+    if(lemail != "" && lpass != ""){
+      await Future.forEach(users, (singleUser) {
+        if(lemail == singleUser.email && lpass == singleUser.password){
+          final luname = singleUser.username;
+          Get.offAll(Hive_Home(uname: luname,));
+          Get.snackbar("Success", "User Login Success");// pushreplacement
+        }else{
+          Get.snackbar("Error", "Invalid Login");
+        }
+      });
+    }else{
+      Get.snackbar("Error", "Fields Must not be Empty");
+    }
   }
 }
