@@ -27,12 +27,12 @@ class _Shared_HomeState extends State<Shared_Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff171a4d),
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 height: MediaQuery.of(context).size.height/2.5,
@@ -69,7 +69,7 @@ class _Shared_HomeState extends State<Shared_Home> {
                 preferences = await SharedPreferences.getInstance();
                 preferences.setBool("newUser", true);
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Shared_Login()));
-              }, child: Text('LogOut'))
+              }, child: Text('LogOut')),
             ],
           ),
         ),

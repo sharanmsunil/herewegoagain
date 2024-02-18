@@ -22,19 +22,19 @@ class _Shared_LoginState extends State<Shared_Login> {
 
   @override
   void initState() {
-    checkTheUserIsAlreadyLoggedIn();
+    // checkTheUserIsAlreadyLoggedIn();
     storedata();
     super.initState();
   }
 
-  void checkTheUserIsAlreadyLoggedIn() async {
-    preferences = await SharedPreferences.getInstance();
-    isANewUser = preferences.getBool('newUser') ?? true;
-    if(isANewUser == false){
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => Shared_Home()));
-    }
-  }
+  // void checkTheUserIsAlreadyLoggedIn() async {
+  //   preferences = await SharedPreferences.getInstance();
+  //   isANewUser = preferences.getBool('newUser') ?? true;
+  //   if(isANewUser == false){
+  //     Navigator.of(context).pushReplacement(
+  //         MaterialPageRoute(builder: (context) => Shared_Home()));
+  //   }
+  // }
   void storedata()async{
     preferences = await SharedPreferences.getInstance();
     username = preferences.getString('Email')!;
