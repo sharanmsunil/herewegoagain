@@ -96,6 +96,7 @@ class _Shared_LoginState extends State<Shared_Login> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: TextField(
+                          style: TextStyle(color: Colors.white),
                           controller: textctrl,
                           decoration: InputDecoration(
                               prefixIcon: Icon(Icons.person,color: Colors.white,),
@@ -108,6 +109,7 @@ class _Shared_LoginState extends State<Shared_Login> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: TextField(
+                          style: TextStyle(color: Colors.white),
                           controller: passctrl,
                           decoration: InputDecoration(
                               prefixIcon: Icon(Icons.lock,color: Colors.white,),

@@ -69,6 +69,7 @@ class _Shared_SignupState extends State<Shared_Signup> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextFormField(
+                    style: TextStyle(color: Colors.white),
                     validator: (emailid){
                       if(emailid!.isEmpty || !emailid.contains('@')){
                         return "Invalid EmailId";
@@ -92,6 +93,7 @@ class _Shared_SignupState extends State<Shared_Signup> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: TextFormField(
+                              style: TextStyle(color: Colors.white),
                             validator: (phnum){
                               if(phnum!.isEmpty || phnum.length!=10){
                                 return "Invalid Phone Number";
@@ -109,6 +111,7 @@ class _Shared_SignupState extends State<Shared_Signup> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: TextFormField(
+                            style: TextStyle(color: Colors.white),
                             validator: (passs){
                               if(passs!.isEmpty || passs.length<8){
                                 return "Password is empty / < 8";
