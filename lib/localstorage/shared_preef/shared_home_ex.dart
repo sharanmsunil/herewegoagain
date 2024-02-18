@@ -27,18 +27,51 @@ class _Shared_HomeState extends State<Shared_Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Welcome $username',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
-            SizedBox(height: 20,),
-            ElevatedButton(onPressed: ()async{
-              preferences = await SharedPreferences.getInstance();
-              preferences.setBool("newUser", true);
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Shared_Login()));
-            }, child: Text('LogOut'))
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height/2.5,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50),
+                      child: Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Color(0xff3d49c0),
+                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(200),bottomRight: Radius.circular(200))
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(image:
+                          AssetImage("assets/images/women-homeo-cure-clinic-1024x1024.png"))
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Text(
+                'WELCOME BUDDY',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30,color: Colors.white),
+              ),
+              //Text('Welcome $username',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+              SizedBox(height: 20,),
+              ElevatedButton(onPressed: ()async{
+                preferences = await SharedPreferences.getInstance();
+                preferences.setBool("newUser", true);
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Shared_Login()));
+              }, child: Text('LogOut'))
+            ],
+          ),
         ),
       ),
     );

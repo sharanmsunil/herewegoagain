@@ -126,7 +126,7 @@ class _Hive_LoginState extends State<Hive_Login> {
       await Future.forEach(users, (singleUser) {
         if(lemail == singleUser.email && lpass == singleUser.password){
           final luname = singleUser.username;
-          Get.offAll(Hive_Home(uname: luname,));
+          Get.offAll(Hive_Home( uname: luname,));
           Get.snackbar("Success", "User Login Success");// pushreplacement
         }else{
           Get.snackbar("Error", "Invalid Login");
