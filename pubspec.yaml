@@ -55,6 +55,7 @@ dependencies:
   email_validator:
   provider: ^6.1.1
   font_awesome_flutter: ^10.6.0
+  badges: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +85,8 @@ flutter:
   assets:
     - assets/gif/
     - assets/images/
+    - assets/moneymanagement/
+    - assets/fruits/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
