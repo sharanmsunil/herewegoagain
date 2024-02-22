@@ -1,8 +1,8 @@
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:herewegoagain/products/productlistscreen.dart';
 import 'package:herewegoagain/products/productsmodel.dart';
+import 'cartscreen.dart';
 
 class ProductController extends GetxController{
   RxList<Product> allProducts = productList.obs;
@@ -12,12 +12,12 @@ class ProductController extends GetxController{
   Rx<double> price = 0.0.obs;
 
 
-  // Widget navigateToCartScreen(BuildContext context){
-  //   isCartScreen = true;
-  //   isItemListScreen = false;
-  //   calculatePrice();
-  //   return CartScreen();
-  // }
+  Widget navigateToCartScreen(BuildContext context){
+    isCartScreen = true;
+    isItemListScreen = false;
+    calculatePrice();
+    return CartScreen();
+  }
 
   countAllItems(){
     itemCount.value = 0;
@@ -27,14 +27,17 @@ class ProductController extends GetxController{
   }
 
   
-  // calculatePrice(){
-  //   price.value = 0.0;
-  //   for(var element in allProducts) {
-  //     if(element.count > 0) {
-  //       price.value = (double.parse(element.price.replaceAll(from, replace)))
-  //     }
-  //   }
-  // }
+  calculatePrice(){
+    price.value = 0.0;
+    for(var element in allProducts) {
+      if(element.count > 0) {
+        price.value = (double.parse(
+            element.price.replaceAll("\$", "").trim())
+        * element.count) +
+        price.value;
+      }
+    }
+  }
 
   Future<bool> navigateToListItemScreen() async{
     controller.isCartScreen = false;
@@ -46,7 +49,7 @@ class ProductController extends GetxController{
     allProducts[index].count++;
     allProducts.refresh();
     countAllItems();
-    // calculatePrice();
+    calculatePrice();
   }
 
   void decrease(int index) {
@@ -54,7 +57,7 @@ class ProductController extends GetxController{
       allProducts[index].count--;
       allProducts.refresh();
       countAllItems();
-      // calculatePrice();
+      calculatePrice();
     }
   }
 
@@ -63,7 +66,7 @@ class ProductController extends GetxController{
       item.count = 0;
     allProducts.refresh();
     itemCount.value = 0;
-    // calculatePrice();
+    calculatePrice();
   }
 
   VoidCallback? isCheckOutButtonEnabled(){

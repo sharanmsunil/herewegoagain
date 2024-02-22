@@ -17,7 +17,7 @@ class ProductListScreen extends StatelessWidget {
         badgeContent : Obx(() => Text(controller.itemCount.value.toString())),
         child : Icon(Icons.shopping_cart)
       ),onPressed: (){
-        // Navigator.push(context, MaterialPageRoute(builder: controller.navigateToCartScreen));
+        Navigator.push(context, MaterialPageRoute(builder: controller.navigateToCartScreen));
       }),
       appBar: AppBar(
         backgroundColor: Colors.black,

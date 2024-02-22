@@ -9,7 +9,7 @@ final ProductController controller = Get.put(ProductController());
 
 class ProductListView extends StatelessWidget {
 Widget countButton(int index, void Function(int index) counter,
-{IconData icon = Icons.add}){
+{IconData? icon}){
   return RawMaterialButton(
   onPressed: (){
     counter(index);
@@ -47,7 +47,7 @@ Widget countButton(int index, void Function(int index) counter,
               Spacer(),
               Row(
                 children: [
-                  countButton(index, controller.increase),
+                  countButton(index, controller.increase, icon: Icons.add),
                   Obx(() => Text(controller.allProducts[index].count.toString())),
                   countButton(index, controller.decrease, icon: Icons.remove)
                 ],
@@ -67,7 +67,9 @@ Widget countButton(int index, void Function(int index) counter,
         } else if (controller.isCartScreen && item.count > 0) {
           return listViewBody(item, index);
         } else {
-          return Container();
+          return Container(
+            color: Colors.red,
+          );
         }
     });
   }
